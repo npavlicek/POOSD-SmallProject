@@ -1,0 +1,13 @@
+{
+    "name": "niko/poosd-small-project",
+    "type": "project",
+    "require": {
+        "php": "^8.2"
+    },
+    "authors": [
+        {
+            "name": "Niko Pavlicek",
+            "email": "npavlicek@users.noreply.github.com"
+        }
+    ]
+}
