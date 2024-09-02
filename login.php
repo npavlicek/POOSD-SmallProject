@@ -1,6 +1,4 @@
 <?php
-
-	session_start();
 	
 	header('Content-type: application/json');
 	
@@ -24,18 +22,17 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT id,first_name,last_name FROM users WHERE Login=? AND Password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		
 		if ($row = $result->fetch_assoc())
 		{
-			$_SESSION["id"] = $row['ID'];
-			$_SESSION["firstName"] = $row['firstName'];
-			$_SESSION["lastName"] = $row['lastName'];
+			session_start();
+			$_SESSION["id"] = $row['id'];
 			
-			returnWithInfo($row['firstName'], $row['lastName'], $row['ID']);
+			returnWithInfo($row['first_name'], $row['last_name'], $row['id']);
 		}
 		else
 		{
