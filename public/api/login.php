@@ -15,7 +15,8 @@ $db = substr($database_url['path'], 1);
 
 $conn = new mysqli($server, $user, $pass, $db);
 if ($conn->connect_error) {
-	loginError();
+	$response = '{"status":"error","desc":"could not connect to database"}';
+	sendResultInfoAsJson($response);
 } else {
 	$stmt = $conn->prepare("SELECT id,first_name,last_name FROM users WHERE username=? AND password=?");
 	$stmt->bind_param("ss", $inData["login"], $inData["password"]);
@@ -26,9 +27,11 @@ if ($conn->connect_error) {
 		session_start();
 		$_SESSION["id"] = $row['id'];
 
-		loginSuccess();
+		$response = '{"status":"success", "desc":""}';
+		sendResultInfoAsJson($response);
 	} else {
-		loginError();
+		$response = '{"status":"loginfail", "desc":"incorrect credentials"}';
+		sendResultInfoAsJson($response);
 	}
 
 	$stmt->close();
@@ -42,20 +45,7 @@ function getRequestInfo()
 
 function sendResultInfoAsJson($obj)
 {
+	http_response_code(200);
 	header('Content-type: application/json');
 	echo $obj;
-}
-
-function loginSuccess()
-{
-	http_response_code(200);
-	$retValue = '{"status":"success"}';
-	sendResultInfoAsJson($retValue);
-}
-
-function loginError()
-{
-	http_response_code(401);
-	$retValue = '{"status":"error"}';
-	sendResultInfoAsJson($retValue);
 }
