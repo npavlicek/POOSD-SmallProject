@@ -16,7 +16,7 @@ $db = substr($database_url['path'], 1);
 
 $conn = new mysqli($server, $user, $pass, $db);
 if ($conn->connect_error) {
-	registerError();
+	registerError("could not connect to database");
 } else {
 	$stmt = $conn->prepare("SELECT id FROM users WHERE username=?");
 	$stmt->bind_param("s", $username);
@@ -24,7 +24,7 @@ if ($conn->connect_error) {
 	$result = $stmt->get_result();
 
 	if ($result->num_rows > 0) {
-		registerError();
+		registerError("username taken");
 	} else {
 		$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
 		$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
@@ -33,7 +33,7 @@ if ($conn->connect_error) {
 			$id = $stmt->insert_id;
 			registerSuccess();
 		} else {
-			registerError();
+			registerError("internal error");
 		}
 	}
 
@@ -59,9 +59,9 @@ function registerSuccess()
 	sendResultInfoAsJson($res);
 }
 
-function registerError()
+function registerError($response)
 {
 	http_response_code(300);
-	$res = '{"status":"error"}';
+	$res = '{"status":"' . $response . '"}';
 	sendResultInfoAsJson($res);
 }
