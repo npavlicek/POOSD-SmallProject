@@ -4,7 +4,7 @@ $inData = getRequestInfo();
 
 $firstName = $inData["first_name"];
 $lastName = $inData["last_name"];
-$username = $inData["login"];
+$username = $inData["username"];
 $password = $inData["password"];
 
 $database_url = parse_url(getenv('DATABASE_URL'));
@@ -65,4 +65,3 @@ function registerError()
 	$res = '{"status":"error"}';
 	sendResultInfoAsJson($res);
 }
-
