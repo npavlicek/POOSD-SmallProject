@@ -15,7 +15,7 @@ $db = substr($database_url['path'], 1);
 
 $conn = new mysqli($server, $user, $pass, $db);
 if ($conn->connect_error) {
-	returnWithError($conn->connect_error);
+	loginError("could not connect to database");
 } else {
 	$stmt = $conn->prepare("SELECT id,first_name,last_name FROM users WHERE username=? AND password=?");
 	$stmt->bind_param("ss", $inData["login"], $inData["password"]);
@@ -26,9 +26,9 @@ if ($conn->connect_error) {
 		session_start();
 		$_SESSION["id"] = $row['id'];
 
-		returnWithInfo($row['first_name'], $row['last_name'], $row['id']);
+		loginSuccess();
 	} else {
-		returnWithError("No Records Found");
+		loginError("wrong credentials");
 	}
 
 	$stmt->close();
@@ -46,14 +46,16 @@ function sendResultInfoAsJson($obj)
 	echo $obj;
 }
 
-function returnWithError($err)
+function loginSuccess()
 {
-	$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+	http_response_code(200);
+	$retValue = '{"status":"success"}';
 	sendResultInfoAsJson($retValue);
 }
 
-function returnWithInfo($firstName, $lastName, $id)
+function loginError($response)
 {
-	$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+	http_response_code(401);
+	$retValue = '{"status":"' . $response . '"}';
 	sendResultInfoAsJson($retValue);
 }
