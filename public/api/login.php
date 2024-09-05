@@ -19,14 +19,14 @@ if ($conn->connect_error) {
 	sendResultInfoAsJson($response);
 } else {
 	$stmt = $conn->prepare("SELECT id,first_name,last_name FROM users WHERE username=? AND password=?");
-	$stmt->bind_param("ss", $inData["login"], $inData["password"]);
+	$stmt->bind_param("ss", $inData["username"], $inData["password"]);
 	$stmt->execute();
 	$result = $stmt->get_result();
 
 	if ($row = $result->fetch_assoc()) {
 		session_start();
 		$_SESSION["id"] = $row['id'];
-    
+
 		$response = '{"status":"success", "desc":""}';
 		sendResultInfoAsJson($response);
 	} else {
