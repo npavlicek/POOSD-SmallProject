@@ -26,7 +26,7 @@ if ($conn->connect_error) {
 	if ($row = $result->fetch_assoc()) {
 		session_start();
 		$_SESSION["id"] = $row['id'];
-
+    
 		$response = '{"status":"success", "desc":""}';
 		sendResultInfoAsJson($response);
 	} else {
