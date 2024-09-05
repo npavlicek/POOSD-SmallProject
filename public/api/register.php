@@ -16,7 +16,8 @@ $db = substr($database_url['path'], 1);
 
 $conn = new mysqli($server, $user, $pass, $db);
 if ($conn->connect_error) {
-	registerError("could not connect to database");
+	$res = '{"status":"error", "desc":"could not connect to database"}';
+	sendResultInfoAsJson($res);
 } else {
 	$stmt = $conn->prepare("SELECT id FROM users WHERE username=?");
 	$stmt->bind_param("s", $username);
@@ -24,16 +25,18 @@ if ($conn->connect_error) {
 	$result = $stmt->get_result();
 
 	if ($result->num_rows > 0) {
-		registerError("username taken");
+		$res = '{"status":"registerfail", "desc":"username taken"}';
+		sendResultInfoAsJson($res);
 	} else {
 		$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
 		$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
 
 		if ($stmt->execute()) {
-			$id = $stmt->insert_id;
-			registerSuccess();
+			$res = '{"status":"success", "desc":""}';
+			sendResultInfoAsJson($res);
 		} else {
-			registerError("internal error");
+			$res = '{"status":"error", "desc":"could not execute registration"}';
+			sendResultInfoAsJson($res);
 		}
 	}
 
@@ -48,20 +51,7 @@ function getRequestInfo()
 
 function sendResultInfoAsJson($obj)
 {
+	http_response_code(200);
 	header('Content-type: application/json');
 	echo $obj;
-}
-
-function registerSuccess()
-{
-	http_response_code(200);
-	$res = '{"status":"success"}';
-	sendResultInfoAsJson($res);
-}
-
-function registerError($response)
-{
-	http_response_code(300);
-	$res = '{"status":"' . $response . '"}';
-	sendResultInfoAsJson($res);
 }
