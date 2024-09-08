@@ -56,7 +56,7 @@ if ($_SESSION["logged_in"]) {
 
 function checkContactExists($conn, $contact_id)
 {
-        $stmt = $conn->prepare("SELECT EXISTS(SELECT 1 FROM contacts WHERE id=? AND user_id=?)");
+        $stmt = $conn->prepare("SELECT 1 FROM contacts WHERE id=? AND user_id=?");
         if ($stmt == false) {
                 sendInternalError();
         } else {
