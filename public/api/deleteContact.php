@@ -7,7 +7,7 @@ if ($_SESSION["logged_in"]) {
         $inData = getRequestInfo();
 
         $keys_exist = true;
-        $keys_exist = $keys_exist and isset($inData["contact_id"]);
+        $keys_exist = $keys_exist && isset($inData["contact_id"]);
 
         if ($keys_exist) {
                 $database_url = parse_url(getenv('DATABASE_URL'));
