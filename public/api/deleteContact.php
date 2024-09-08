@@ -41,6 +41,7 @@ if ($_SESSION["logged_in"]) {
                                         $conn->close();
                                 }
                         } else {
+                                echo '{"user_id": "' . $inData['contact_id'] . '", "id": "' . $_SESSION['id'] . '"}';
                                 sendResponse(404, "contact_id_not_found", "the supplied contact id does not exist");
                         }
                 }
