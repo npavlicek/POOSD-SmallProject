@@ -1,6 +1,8 @@
 <?php
 
-if (session_status() == PHP_SESSION_ACTIVE) {
+session_start();
+
+if ($_SESSION["logged_in"]) {
         $inData = getRequestInfo();
 
         $keys_exist = true;

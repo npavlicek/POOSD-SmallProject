@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $inData = getRequestInfo();
 
 $id = 0;
@@ -24,7 +26,7 @@ if ($conn->connect_error) {
 	$result = $stmt->get_result();
 
 	if ($row = $result->fetch_assoc()) {
-		session_start();
+		$_SESSION['logged_in'] = true;
 		$_SESSION["id"] = $row['id'];
 
 		$response = '{"status":"success", "desc":""}';
