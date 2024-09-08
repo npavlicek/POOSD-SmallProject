@@ -6,11 +6,11 @@ if ($_SESSION["logged_in"]) {
         $inData = getRequestInfo();
 
         $keys_exist = true;
-        $keys_exist = $keys_exist and array_key_exists("first_name", $inData);
-        $keys_exist = $keys_exist and array_key_exists("last_name", $inData);
-        $keys_exist = $keys_exist and array_key_exists("phone_number", $inData);
-        $keys_exist = $keys_exist and array_key_exists("email", $inData);
-        $keys_exist = $keys_exist and array_key_exists("contact_id", $inData);
+        $keys_exist = $keys_exist and isset($inData["first_name"]);
+        $keys_exist = $keys_exist and isset($inData["last_name"]);
+        $keys_exist = $keys_exist and isset($inData["phone_number"]);
+        $keys_exist = $keys_exist and isset($inData["email"]);
+        $keys_exist = $keys_exist and isset($inData["contact_id"]);
 
         if ($keys_exist) {
                 $database_url = parse_url(getenv('DATABASE_URL'));

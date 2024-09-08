@@ -7,7 +7,7 @@ if ($_SESSION["logged_in"]) {
         $inData = getRequestInfo();
 
         $keys_exist = true;
-        $keys_exist = $keys_exist and array_key_exists("contact_id", $inData);
+        $keys_exist = $keys_exist and isset($inData["contact_id"]);
 
         if ($keys_exist) {
                 $database_url = parse_url(getenv('DATABASE_URL'));
@@ -41,7 +41,6 @@ if ($_SESSION["logged_in"]) {
                                         $conn->close();
                                 }
                         } else {
-                                echo '{"user_id": "' . $inData['contact_id'] . '", "id": "' . $_SESSION['id'] . '"}';
                                 sendResponse(404, "contact_id_not_found", "the supplied contact id does not exist");
                         }
                 }
