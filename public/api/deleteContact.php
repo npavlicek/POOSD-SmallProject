@@ -60,6 +60,7 @@ function checkContactExists($conn, $contact_id)
         } else {
                 $stmt->bind_param("ss", $contact_id, $_SESSION["id"]);
                 if ($stmt->execute()) {
+                        $stmt->store_result();
                         if ($stmt->num_rows > 0) {
                                 return true;
                         } else {
