@@ -18,7 +18,7 @@ $db = substr($database_url['path'], 1);
 
 $conn = new mysqli($server, $user, $pass, $db);
 
-if ($conn->connect_error) 
+if ($conn->connect_errno) 
 {
 	returnWithError("Trouble Connecting to database");
 } else 
