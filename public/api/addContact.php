@@ -30,6 +30,7 @@ if ($conn->connect_errno)
 		returnWithError("unable to add contact");
 	} else
 	{
+		$stmt->execute();
 		$stmt->close();
 		$conn->close();
 		returnWithError("");
