@@ -2,9 +2,12 @@
 
 $inData = getRequestInfo();
 
-$first_name = $inData["first name"];
-$last_name = $inData["last_name"];
-$userId = $inData["userId"];
+$first = $inData["first name"];
+$last = $inData["last_name"];
+$phone = $inData["phone_number"];
+$email = $inData["email"];
+$user_id = $inData["user_id"];
+$id = $inData["id"];
 
 $database_url = parse_url(getenv('DATABASE_URL'));
 
@@ -17,15 +20,20 @@ $conn = new mysqli($server, $user, $pass, $db);
 
 if ($conn->connect_error) 
 {
-	returnWithError($conn->connect_error);
+	returnWithError("Trouble Connecting to database");
 } else 
 {
-	$stmt = conn->prepare("INSERT into contacts (UserID, first, last) Values(?, ?, ?)");
-	$stmt->bind_param("ss", $userId, $first_name, $last_name);
-	$stmt->execute();
-	$stmt->clost();
-	$conn->close();
-	returnWithError("");
+	$stmt = conn->prepare("INSERT into contacts (first_name, last_name, phone_number, email, user_id, id) Values(?, ?, ?, ?, ?, ?)");
+	$stmt->bind_param("ssssss", $first, $last, $phone, $email, $user_id, $id);
+	if(!$stmt->execute())
+	{
+		returnWithError("unable to add contact");
+	} else
+	{
+		$stmt->close();
+		$conn->close();
+		returnWithError("");
+	}
 }
 	
 	
