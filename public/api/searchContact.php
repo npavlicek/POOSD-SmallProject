@@ -41,7 +41,7 @@ else
 			$searchResults .= '{"first name" : "' . $row["first_name"]. '", "last name" : "' . $row[last_name]. '", "Phone" : "' . $row["phone_number"]. '", "Email" : "' . $row["email"] . '"}';
 		}
 		
-		if($searchCount == 0 )
+		if($searchCount == 0)
 		{
 			returnWithError("No Records Found");
 		}
@@ -77,6 +77,4 @@ function returnWithInfo( $searchResults )
 		$retValue = '{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 }
-
-
 ?>
