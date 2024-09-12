@@ -1,3 +1,21 @@
+const animateCSS = (element, animation, prefix = 'animate__') =>
+	// We create a Promise and return it
+	new Promise((resolve, reject) => {
+		const animationName = `${prefix}${animation}`;
+	 	const node = element;
+
+	 	node.classList.add(`${prefix}animated`, animationName);
+
+	 	// When the animation ends, we clean the classes and resolve the Promise
+	 	function handleAnimationEnd(event) {
+			event.stopPropagation();
+	 		node.classList.remove(`${prefix}animated`, animationName);
+	 		resolve('Animation ended');
+	 	}
+
+	 	node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
+
 function doLogin()
 {
 	const username = document.getElementById("username").value;
@@ -23,33 +41,21 @@ function doLogin()
 	}).then(json => {
 		if (json.status === 'success') { window.location.href = '/contacts.php';
 		} else {
-			let found_prev_alerts = document.getElementsByClassName('collapse');
+			let found_prev_alerts = document.getElementsByClassName('error_alert');
 			if (found_prev_alerts.length > 0)
 			{
-				for (let i = 0; i < found_prev_alerts.length; i++)
-				{
-					bootstrap.Collapse.getInstance(found_prev_alerts[i]).hide();
-				}
+				animateCSS(found_prev_alerts[0], 'headShake');
+			} else {
+				let wrapper = document.createElement("div");
+				wrapper.classList.add('error_alert');
+
+				let errMsg = document.createElement("div");
+				errMsg.classList.add('alert', 'alert-danger', 'mt-3');
+				errMsg.innerText = "Login error: " + json.desc;
+
+				wrapper.appendChild(errMsg);
+				document.body.firstElementChild.appendChild(wrapper);
 			}
-
-			let wrapper = document.createElement("div");
-			wrapper.classList.add('collapse', 'show');
-
-			let errMsg = document.createElement("div");
-			errMsg.classList.add('alert', 'alert-danger', 'mb-3');
-			errMsg.innerText = "Login error: " + json.desc;
-
-			let wrapper_collapse = new bootstrap.Collapse(wrapper, {
-				toggle: false
-			});
-
-			wrapper.addEventListener('hidden.bs.collapse', event => {
-				bootstrap.Collapse.getInstance(wrapper).dispose();
-				wrapper.remove();
-			});
-
-			wrapper.appendChild(errMsg);
-			document.body.firstElementChild.appendChild(wrapper);
 		}
 	}).catch(function(error) {
 		console.log(error);
@@ -104,11 +110,21 @@ function doRegister()
 
 			document.body.firstElementChild.appendChild(successMsg);
 		} else {
-			const errMsg = document.createElement("div");
-			errMsg.id = "error_msg";
-			errMsg.classList.add('alert', 'alert-danger');
-			errMsg.innerText = "Registration error: " + json.desc;
-			document.body.firstElementChild.appendChild(errMsg);
+			let found_prev_alerts = document.getElementsByClassName('error_alert');
+			if (found_prev_alerts.length > 0)
+			{
+				animateCSS(found_prev_alerts[0], 'headShake');
+			} else {
+				let wrapper = document.createElement("div");
+				wrapper.classList.add('error_alert');
+
+				let errMsg = document.createElement("div");
+				errMsg.classList.add('alert', 'alert-danger', 'mt-3');
+				errMsg.innerText = "Registration error: " + json.desc;
+
+				wrapper.appendChild(errMsg);
+				document.body.firstElementChild.appendChild(wrapper);
+			}
 		}
 	}).catch(function(error) {
 		console.log(error);
