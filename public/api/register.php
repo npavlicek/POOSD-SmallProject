@@ -2,46 +2,52 @@
 
 $inData = getRequestInfo();
 
-$firstName = $inData["first_name"];
-$lastName = $inData["last_name"];
-$username = $inData["username"];
-$password = $inData["password"];
+$keys_exist = true;
+$keys_exist = $keys_exist && isset($inData['first_name']);
+$keys_exist = $keys_exist && isset($inData['last_name']);
+$keys_exist = $keys_exist && isset($inData['username']);
+$keys_exist = $keys_exist && isset($inData['password']);
 
-$database_url = parse_url(getenv('DATABASE_URL'));
+if ($keys_exist) {
+	$firstName = $inData["first_name"];
+	$lastName = $inData["last_name"];
+	$username = $inData["username"];
+	$password = $inData["password"];
 
-$server = $database_url['host'];
-$user = $database_url['user'];
-$pass = $database_url['pass'];
-$db = substr($database_url['path'], 1);
+	$database_url = parse_url(getenv('DATABASE_URL'));
 
-$conn = new mysqli($server, $user, $pass, $db);
-if ($conn->connect_error) {
-	$res = '{"status":"error", "desc":"could not connect to database"}';
-	sendResultInfoAsJson($res);
-} else {
-	$stmt = $conn->prepare("SELECT id FROM users WHERE username=?");
-	$stmt->bind_param("s", $username);
-	$stmt->execute();
-	$result = $stmt->get_result();
+	$server = $database_url['host'];
+	$user = $database_url['user'];
+	$pass = $database_url['pass'];
+	$db = substr($database_url['path'], 1);
 
-	if ($result->num_rows > 0) {
-		$res = '{"status":"registerfail", "desc":"username taken"}';
-		sendResultInfoAsJson($res);
+	$conn = new mysqli($server, $user, $pass, $db);
+	if ($conn->connect_errno) {
+		sendInternalError();
 	} else {
-		$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
+		$stmt = $conn->prepare("SELECT id FROM users WHERE username=BINARY ?");
+		$stmt->bind_param("s", $username);
+		$stmt->execute();
+		$result = $stmt->get_result();
 
-		if ($stmt->execute()) {
-			$res = '{"status":"success", "desc":""}';
-			sendResultInfoAsJson($res);
+		if ($result->num_rows > 0) {
+			sendResponse(409, "register_fail", "username taken");
 		} else {
-			$res = '{"status":"error", "desc":"could not execute registration"}';
-			sendResultInfoAsJson($res);
-		}
-	}
+			$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
+			$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
 
-	$stmt->close();
-	$conn->close();
+			if ($stmt->execute()) {
+				sendResponse(200, "success", "");
+			} else {
+				sendInternalError();
+			}
+		}
+
+		$stmt->close();
+		$conn->close();
+	}
+} else {
+	sendResponse(400, "bad_request", "missing required api parameters");
 }
 
 function getRequestInfo()
@@ -49,9 +55,22 @@ function getRequestInfo()
 	return json_decode(file_get_contents('php://input'), true);
 }
 
+function sendResponse($http_code, $status, $desc)
+{
+	$res = '{"status": "' . $status . '", "desc": "' . $desc . '"}';
+	http_response_code($http_code);
+	sendResultInfoAsJson($res);
+}
+
+function sendInternalError()
+{
+	$res = '{"status": "error", "desc": "internal error"}';
+	http_response_code(500);
+	sendResultInfoAsJson($res);
+}
+
 function sendResultInfoAsJson($obj)
 {
-	http_response_code(200);
 	header('Content-type: application/json');
 	echo $obj;
 }
