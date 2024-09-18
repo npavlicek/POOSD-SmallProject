@@ -1,0 +1,60 @@
+body {
+      background-image: url('https://hmnh.harvard.edu/sites/hwpi.harvard.edu/files/styles/os_files_xxlarge/public/hmnh/files/sharks-poster-22-07-05.jpg?m=1666199614&itok=cXIwKTb8');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 28pt;
+}
+
+h5 {
+    font-weight: bold;
+    font-size: 19pt;
+}
+
+.increase-top-gap {
+    margin-top: 5pt;
+}
+
+.reduce-bottom-gap {
+    margin-bottom: 3pt;
+}
+
+/* Position the clickable images in the bottom right */
+.card-body {
+    position: relative;
+}
+
+.image-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.image-link img {
+    width: 30px; 
+    height: 30px;
+    margin-left: 5px;
+}
+
+.red-background {
+    background-color: red;
+    padding: 5px; /* Optional padding to give it more space */
+    border-radius: 5px; /* Optional rounded corners */
+}
+
+.blue-background{
+    background-color: rgb(43, 166, 206);
+    padding: 5px; /* Optional padding to give it more space */
+    border-radius: 5px; /* Optional rounded corners */
+}
+
+.row{
+    height: 100px;
+    width: 1000px;
+}
+
+.
