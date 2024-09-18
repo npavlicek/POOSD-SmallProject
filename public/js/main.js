@@ -132,3 +132,10 @@ function doRegister()
 
 	return false;
 }
+
+function confirmDelete() {
+	let confirmAction = confirm("Are you sure you want to delete this?");
+	if (confirmAction) {
+		// Add deletetion of contact from the database
+	}
+}
