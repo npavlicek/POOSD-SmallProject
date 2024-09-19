@@ -27,9 +27,16 @@ if ($_SESSION['logged_in']) {
         <a href="/logout.php" class="mt-3">Logout</a>
     </div>
 
+    
+
     <!-- ChatGPT helped me create the boxes -->
     <div class="container mt-5">
         <h1 class="text-center mb-5">Contact List</h1>
+        
+        <div>
+            <button class="new-button-contact" onclick=""> + Create New Contact</button>
+        </div>
+
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="card contact-card">
@@ -47,6 +54,7 @@ if ($_SESSION['logged_in']) {
                 </div>
             </div>
         </div>
+        
     </div>
 
 
