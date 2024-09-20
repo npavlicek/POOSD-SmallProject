@@ -48,7 +48,7 @@ if ($_SESSION['logged_in']) {
 				$query = $query . "WHERE user_id=?";
 			}
 
-			$query = $query . " ORDER BY id DESC LIMIT ? OFFSET ?;";
+			$query = $query . " ORDER BY id ASC LIMIT ? OFFSET ?;";
 
 			$stmt = $conn->prepare($query);
 
@@ -78,19 +78,25 @@ if ($_SESSION['logged_in']) {
 				if ($res->num_rows > 0) {
 					$res_json = "{ \"results\": [";
 
+					$idx = 0;
 					while ($cur_field = $res->fetch_assoc()) {
+						if ($idx != 0) $res_json = $res_json . ",";
+
 						$res_json = $res_json . "{";
 
 						$res_json = $res_json . "\"first_name\": \"" . $cur_field["first_name"] . "\",";
 						$res_json = $res_json . "\"last_name\": \"" . $cur_field["last_name"] . "\",";
 						$res_json = $res_json . "\"phone_number\": \"" . $cur_field["phone_number"] . "\",";
 						$res_json = $res_json . "\"email\": \"" . $cur_field["email"] . "\",";
-						$res_json = $res_json . "\"id\": \"" . $cur_field["id"] . "\",";
+						$res_json = $res_json . "\"date_created\": \"" . $cur_field["date_created"] . "\",";
+						$res_json = $res_json . "\"id\": \"" . $cur_field["id"] . "\"";
 
-						$res_json = $res_json . "},";
+						$res_json = $res_json . "}";
+
+						$idx = $idx + 1;
 					}
 
-					$res_json = $res_json . "]}";
+					$res_json = $res_json . "], \"status\": \"success\"}";
 
 					sendResultInfoAsJson($res_json);
 				} else {
