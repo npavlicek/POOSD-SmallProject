@@ -100,7 +100,7 @@ if ($_SESSION['logged_in']) {
 
 					sendResultInfoAsJson($res_json);
 				} else {
-					sendResultInfoAsJson("{}");
+					sendResultInfoAsJson("{ \"status\": \"success\", \"results\": [] }");
 				}
 			} else {
 				sendInternalError();
