@@ -27,6 +27,9 @@ if ($_SESSION['logged_in']) {
             <div>
                 <button class="new-button-contact" onclick=""> + Create New Contact</button>
             </div>
+            <div>
+                <input type="text" aria-label="Search for Contact" class="form-control" id="searchbar" oninput="searchUpdate()">
+            </div>
 
             <div id="contacts-container" class="row row-cols-3">
             </div>
