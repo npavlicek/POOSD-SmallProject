@@ -1,16 +1,22 @@
 let currentContactOffset = 0;
 let doneLoadingAllContacts = false;
 
+let boolSearchQuery = false;
+
 function initContacts() {
 	loadNextContacts();
 }
 
 function loadNextContacts() {
 	if (!doneLoadingAllContacts) {
-		const reqBody = JSON.stringify({
+		const body = {
 			limit: 15,
 			offset: currentContactOffset
-		});
+		}
+		if(boolSearchQuery){
+			body.search_query = document.getElementById("searchbar").value;
+		}
+		const reqBody = JSON.stringify(body);
 		currentContactOffset += 15;
 		
 		fetch(
@@ -97,3 +103,27 @@ function appendContact(contact) {
 	node.appendChild(columnNode);
 }
 
+clearContacts()
+{
+	document.getElementById("contacts-container").innerHTML = "";
+}
+
+let timeOutTimer;
+
+function searchUpdate()
+{
+	clearTimeout(timeOutTimer);
+	timeOutTimer = setTimeout(2000, doSearch());
+}
+
+function doSearch()
+{
+	if(document.getElementById("searchbar").value === ""){
+		boolSearchQuery = false;
+	} else {
+		boolSearchQuery = true;
+		clearContacts();
+		currentContactOffset = 0;
+	}
+	loadNextContacts();
+}
