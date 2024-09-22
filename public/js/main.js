@@ -231,16 +231,46 @@ window.onscroll = function(ev) {
 	}
 }
 
+function clearContacts()
+{
+	// does this remove all contacts?
+	const contactsNode = document.getElementById("contacts-container");
+	while(contactsNode.hasChildNodes()) contactsNode.removeChild();
+}
+
+// Timeout for Search
+let searchTime;
+let searchVal;
+
+function searchUpdate()
+{
+	clearTimeout(searchTime);
+	searchTime = setTimeout(initSearch, 2000);
+}
+
 function initSearch()
 {
-	const searchVal = document.getElementById("searchbar");
+	if(document.getElementById("searchBar").value === searchVal) return;
+	doSearch();
+}
+
+function doSearch()
+{
+	if(searchVal == null){
+		initContacts();
+		return;
+	}
+
+	clearContacts();
+
+	searchVal = document.getElementById("searchbar").value;
 	const reqBody = JSON.stringify({
 		limit: 15,
-		offset: 0,
+		offset: currentContactOffset, // Set to current Offset Value?
 		search_query: searchVal
 	});
 
-	currentContactOffset = 15;
+	currentContactOffset += 15;
 	
 	fetch(
 		'./api/searchContact.php',
@@ -305,8 +335,7 @@ function addContact()
 		return response.json();
 	}).then(json => {
 		if (json.status === 'success') {
-			// Successfully Added Contact
-			// Should we Refresh Contacts Page?
+			doSearch();
 		}
 	}).catch(function(error) {
 		console.log(error);
@@ -343,8 +372,9 @@ function editContact(contact_id)
 		return response.json();
 	}).then(json => {
 		if (json.status === 'success') {
-			// Successfully Edited Contact
-			// Should we Refresh the Entire Search, or just Update the Contact we Edited?
+			// Set offset back to 0
+			// Alert user that contact has been edited
+			doSearch();
 		}
 	}).catch(function(error) {
 		console.log(error);
@@ -371,8 +401,9 @@ function deleteContact(contact_id)
 		return response.json();
 	}).then(json => {
 		if (json.status === 'success') {
-			// Successfully Deleted Contact
-			// Should we just remove the Contact on the Page, or should we Update the Page?
+			// Alert user that contact has been deleted
+			currentContactOffset = 0;
+			doSearch();
 		}
 	}).catch(function(error) {
 		console.log(error);

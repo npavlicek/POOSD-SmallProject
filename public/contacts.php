@@ -26,8 +26,8 @@ if ($_SESSION['logged_in']) {
 
             <div>
                 <label for="searchbar">Search:</label>
-                <input id="searchbar" type="text" onchange="initSearch()">
                 <button class="new-button-contact" onclick="loadContactInput()"> + Create New Contact</button>
+                <input id="searchbar" type="text" oninput="searchUpdate()">
                 <form id="addContactForm" hidden>
                     <label for="contact_first_name" class="form-label">First Name</label>
                     <input type="text" id="contact_first_name" class="form-control" disabled>
