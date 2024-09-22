@@ -27,6 +27,8 @@ function loadNextContacts() {
 			return response.json();
 		}).then(json => {
 			if (json.status === 'success') {
+				console.log("received contacts #: " + json.results.length);
+
 				for (contact of json.results) {
 					appendContact(contact);
 				}
