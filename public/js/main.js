@@ -133,10 +133,11 @@ function doRegister()
 	return false;
 }
 
-function confirmDelete() {
+function confirmDelete(contact_id) {
 	let confirmAction = confirm("Are you sure you want to delete this?");
 	if (confirmAction) {
 		// Add deletetion of contact from the database
+		deleteContact(contact_id);
 		alert("It works");
 	}
 }
@@ -228,4 +229,152 @@ window.onscroll = function(ev) {
 			console.log("current y: " + (window.innerHeight + window.scrollY));
 		}
 	}
+}
+
+function initSearch()
+{
+	const searchVal = document.getElementById("searchbar");
+	const reqBody = JSON.stringify({
+		limit: 15,
+		offset: 0,
+		search_query: searchVal
+	});
+
+	currentContactOffset = 15;
+	
+	fetch(
+		'./api/searchContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			for (contact of json.results) {
+				appendContact(contact);
+			}
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function loadContactInput()
+{
+	document.getElementById("new-button-contact").toggleAttribute("hidden");
+	document.getElementById("addContactForm").toggleAttribute("hidden");
+	document.getElementById("first_name").toggleAttribute("disabled");
+	document.getElementById("last_name").toggleAttribute("disabled");
+	document.getElementById("email").toggleAttribute("disabled");
+	document.getElementById("phone_number").toggleAttribute("disabled");
+	document.getElementById("addContact").toggleAttribute("disabled");
+	document.getElementById("cancelAddContact").toggleAttribute("disabled");
+}
+
+function addContact()
+{
+	const first_name = document.getElementById("contact_first_name");
+	const last_name = document.getElementById("contact_last_name");
+	const phone_number = document.getElementById("contact_phone_number");
+	const email = document.getElementById("contact_email");
+
+	const reqBody = JSON.stringify({
+		first_name,
+		last_name,
+		phone_number,
+		email
+	});
+	
+	fetch(
+		'./api/addContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			// Successfully Added Contact
+			// Should we Refresh Contacts Page?
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function editContact(contact_id)
+{
+	// Need to find past contact information?
+	const first_name = document.getElementById("");
+	const last_name = document.getElementById("");
+	const phone_number = document.getElementById("");
+	const email = document.getElementById("");
+
+	const reqBody = JSON.stringify({
+		first_name,
+		last_name,
+		phone_number,
+		email,
+		contact_id
+	});
+	
+	fetch(
+		'./api/editContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			// Successfully Edited Contact
+			// Should we Refresh the Entire Search, or just Update the Contact we Edited?
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function deleteContact(contact_id)
+{	
+	const reqBody = JSON.stringify({
+		contact_id
+	});
+	
+	fetch(
+		'./api/deleteContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			// Successfully Deleted Contact
+			// Should we just remove the Contact on the Page, or should we Update the Page?
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
 }

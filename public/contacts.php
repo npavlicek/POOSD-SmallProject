@@ -25,7 +25,38 @@ if ($_SESSION['logged_in']) {
             <h1 class="text-center mb-5">Contact List</h1>
 
             <div>
-                <button class="new-button-contact" onclick=""> + Create New Contact</button>
+                <label for="searchbar">Search:</label>
+                <input id="searchbar" type="text" onchange="initSearch()">
+                <button class="new-button-contact" onclick="loadContactInput()"> + Create New Contact</button>
+                <form id="addContactForm" hidden>
+                    <label for="contact_first_name" class="form-label">First Name</label>
+                    <input type="text" id="contact_first_name" class="form-control" disabled>
+                    <label for="contact_last_name" class="form-label">Last Name</label>
+                    <input type="text" id="contact_last_name" class="form-control" disabled>
+                    <label for="contact_email" class="form-label">Email Address</label>
+                    <input type="text" id="contact_email" class="form-control" disabled>
+                    <label for="contact_phone_number" class="form-label">Phone Number</label>
+                    <input type="text" id="contact_phone_number" class="form-control" disabled>
+                    <div>
+                        <button id="addContact" onclick="addContact()" disabled>Add Contact</button>
+                        <button id="cancelAddContact" onclick="loadContactInput()" disabled>Cancel</button>
+                    </div>
+                </form>
+
+                <!-- Didn't Know whether Form was the best input method for add contact -->
+
+                <!-- <div id="addContactDiv" hidden>
+                    <label for="contact_first_name">First Name</label>
+                    <input type="text" id="contact_first_name" disabled>
+                    <label for="contact_last_name">Last Name</label>
+                    <input type="text" id="contact_last_name" disabled>
+                    <label for="contact_email">Email Address</label>
+                    <input type="text" id="contact_email" disabled>
+                    <label for="contact_phone_number">Phone Number</label>
+                    <input type="text" id="contact_phone_number" disabled>
+                    <button id="addContact" onclick="addContact()" disabled>Add Contact</button>
+                    <button id="canceldAddContact" onclick="loadContactInput()" disabled>Cancel</button>
+                </div> -->
             </div>
 
             <div id="contacts-container" class="row row-cols-3">
