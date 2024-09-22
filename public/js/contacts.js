@@ -113,7 +113,7 @@ let timeOutTimer;
 function searchUpdate()
 {
 	clearTimeout(timeOutTimer);
-	timeOutTimer = setTimeout(2000, doSearch());
+	timeOutTimer = setTimeout(doSearch, 2000);
 }
 
 function doSearch()
@@ -123,6 +123,7 @@ function doSearch()
 	} else {
 		boolSearchQuery = true;
 		clearContacts();
+		doneLoadingAllContacts = false;
 		currentContactOffset = 0;
 	}
 	loadNextContacts();
