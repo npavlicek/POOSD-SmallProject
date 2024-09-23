@@ -1,16 +1,22 @@
 let currentContactOffset = 0;
 let doneLoadingAllContacts = false;
 
+let boolSearchQuery = false;
+
 function initContacts() {
 	loadNextContacts();
 }
 
 function loadNextContacts() {
 	if (!doneLoadingAllContacts) {
-		const reqBody = JSON.stringify({
+		const body = {
 			limit: 15,
 			offset: currentContactOffset
-		});
+		}
+		if(boolSearchQuery){
+			body.search_query = document.getElementById("searchbar").value;
+		}
+		const reqBody = JSON.stringify(body);
 		currentContactOffset += 15;
 		
 		fetch(
@@ -95,3 +101,126 @@ function appendContact(contact) {
 	node.appendChild(columnNode);
 }
 
+clearContacts()
+{
+	document.getElementById("contacts-container").innerHTML = "";
+}
+
+let timeOutTimer;
+
+function searchUpdate()
+{
+	clearTimeout(timeOutTimer);
+	timeOutTimer = setTimeout(doSearch, 2000);
+}
+
+function doSearch()
+{
+	if(document.getElementById("searchbar").value === ""){
+		boolSearchQuery = false;
+	} else {
+		clearContacts();
+		boolSearchQuery = true;
+		doneLoadingAllContacts = false;
+		currentContactOffset = 0;
+	}
+	loadNextContacts();
+}
+
+function addContact()
+{
+	// Need to Add Some Sort of Form for Add Contact?
+	const first_name = document.getElementById("add_first_name").value;
+	const last_name = document.getElementById("add_last_name").value;
+	const phone_number = document.getElementById("add_phone_number").value;
+	const email = document.getElementById("add_email").value;
+
+	const reqBody = JSON.stringify({
+		first_name,
+		last_name,
+		phone_number,
+		email
+	});
+		fetch(
+			'./api/addContact.php',
+			{
+				method: 'post',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: reqBody,
+				credentials: 'include'
+			}
+		).then(response => {
+			return response.json();
+		}).then(json => {
+			if (json.status === 'success') {
+				// Successfully added Contact
+			}
+		}).catch(function(error) {
+			console.log(error);
+		});
+}
+
+
+function deleteContact(node)
+{
+	const contact_id = node.parentElement.getAttribute("data-contact-id");
+	if(contact_id === ""){
+		// Possible Error?
+		return;
+	}
+	const reqBody = JSON.stringify({
+		contact_id
+	});
+		fetch(
+			'./api/deleteContact.php',
+			{
+				method: 'post',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: reqBody,
+				credentials: 'include'
+			}
+		).then(response => {
+			return response.json();
+		}).then(json => {
+			if (json.status === 'success') {
+				// Successfully deleted Contact
+				node.parentElement.remove();
+			}
+		}).catch(function(error) {
+			console.log(error);
+		});
+}
+
+function editContact(node)
+{
+	const reqBody = JSON.stringify({
+		first_name,
+		last_name,
+		phone_number,
+		email,
+		contact_id
+	});
+		fetch(
+			'./api/editContact.php',
+			{
+				method: 'post',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: reqBody,
+				credentials: 'include'
+			}
+		).then(response => {
+			return response.json();
+		}).then(json => {
+			if (json.status === 'success') {
+				// Successfully edited Contact
+			}
+		}).catch(function(error) {
+			console.log(error);
+		});
+}
