@@ -43,12 +43,13 @@ if ($_SESSION['logged_in']) {
 			if (isset($inData["search_query"])) {
 				$query = $query . "WHERE (first_name LIKE CONCAT('%', ?, '%') OR last_name LIKE CONCAT('%', ?, '%') 
 				OR phone_number LIKE CONCAT('%', ?, '%') OR email LIKE CONCAT('%', ?, '%')) 
-				AND user_id=?";
+				AND user_id=? 
+				ORDER BY first_name, last_name, email, phone_number";
 			} else {
-				$query = $query . "WHERE user_id=?";
+				$query = $query . "WHERE user_id=? ORDER BY id";
 			}
 
-			$query = $query . " ORDER BY id ASC LIMIT ? OFFSET ?;";
+			$query = $query . " LIMIT ? OFFSET ?;";
 
 			$stmt = $conn->prepare($query);
 
