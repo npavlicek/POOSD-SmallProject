@@ -101,28 +101,31 @@ function appendContact(contact) {
 	node.appendChild(columnNode);
 }
 
-clearContacts()
+function clearContacts()
 {
 	document.getElementById("contacts-container").innerHTML = "";
 }
 
-let timeOutTimer;
+let timeOutTimer = null;
 
 function searchUpdate()
 {
-	clearTimeout(timeOutTimer);
-	timeOutTimer = setTimeout(doSearch, 2000);
+	if (timeOutTimer != null) {
+		clearTimeout(timeOutTimer);
+	}
+
+	timeOutTimer = setTimeout(doSearch, 500);
 }
 
 function doSearch()
 {
+	doneLoadingAllContacts = false;
+	currentContactOffset = 0;
+	clearContacts();
 	if(document.getElementById("searchbar").value === ""){
 		boolSearchQuery = false;
 	} else {
 		boolSearchQuery = true;
-		clearContacts();
-		doneLoadingAllContacts = false;
-		currentContactOffset = 0;
 	}
 	loadNextContacts();
 }
