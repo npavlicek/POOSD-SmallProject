@@ -24,12 +24,9 @@ if ($_SESSION['logged_in']) {
             <a href="/logout.php" class="mt-3">Logout</a>
             <h1 class="text-center mb-5">Contact List</h1>
 
-            <div>
-                <button class="new-button-contact" onclick=""> + Create New Contact</button>
-            </div>
-            <div>
-                <input type="text" aria-label="Search for Contact" class="form-control" id="searchbar" oninput="searchUpdate()">
-            </div>
+            <button class="btn btn-primary" onclick=""> + Create New Contact</button>
+
+            <input type="text" aria-label="Search for Contact" class="form-control" id="searchbar" oninput="searchUpdate()">
 
             <div id="contacts-container" class="row row-cols-3">
             </div>
