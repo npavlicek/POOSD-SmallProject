@@ -30,7 +30,7 @@ if ($_SESSION['logged_in']) {
 			sendInternalError();
 		} else {
 			$stmt = $conn->prepare("INSERT INTO contacts (first_name, last_name, phone_number, email, user_id) VALUES (?, ?, ?, ?, ?)");
-			$stmt->bind_param("ss", $first, $last, $phone, $email, $_SESSION['id']);
+			$stmt->bind_param("sssss", $first, $last, $phone, $email, $_SESSION['id']);
 
 			if ($stmt->execute()) {
 				sendResponse(200, "success", "");

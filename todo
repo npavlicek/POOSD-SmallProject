@@ -1,0 +1,10 @@
+- convert dates to local time zone and make them look nice
+- getContact api endpoint
+- edit contact frontend
+- delete contact frontend
+- password hashing
+- make pages look nice
+- alerts for various actions such as creating a contact and deleting
+- aria labeling
+- fix lazy loading scroll
+- convert bootstrap grid to flexbox
