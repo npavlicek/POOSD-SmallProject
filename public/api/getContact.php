@@ -5,16 +5,10 @@ session_start();
 if ($_SESSION['logged_in']) {
 	$inData = getRequestInfo();
 
-	$first = $inData["first_name"];
-	$last = $inData["last_name"];
-	$phone = $inData["phone_number"];
-	$email = $inData["email"];
+	$first = $inData["contact_id"];
 
 	$keys_exist = true;
-	$keys_exist = $keys_exist && isset($inData["first_name"]);
-	$keys_exist = $keys_exist && isset($inData["last_name"]);
-	$keys_exist = $keys_exist && isset($inData["phone_number"]);
-	$keys_exist = $keys_exist && isset($inData["email"]);
+	$keys_exist = $keys_exist && isset($inData["contact_id"]);
 
 	if ($keys_exist) {
 		$database_url = parse_url(getenv('DATABASE_URL'));
@@ -29,13 +23,26 @@ if ($_SESSION['logged_in']) {
 		if ($conn->connect_errno) {
 			sendInternalError();
 		} else {
-			$stmt = $conn->prepare("INSERT INTO contacts (first_name, last_name, phone_number, email, user_id) VALUES (?, ?, ?, ?, ?)");
-			$stmt->bind_param("sssss", $first, $last, $phone, $email, $_SESSION['id']);
+			$stmt = $conn->prepare("SELECT first_name, last_name, email, phone_number, date_created FROM contacts WHERE user_id=? AND id=?;");
+			$stmt->bind_param("ss", $_SESSION['id'], $inData["contact_id"]);
 
 			if ($stmt->execute()) {
-				http_response_code(200);
-				$res = "{ \"status\": \"success\", \"desc\": \"\", \"contact_id\": {$stmt->insert_id} }";
-				sendResultInfoAsJson($res);
+				$sql_res = $stmt->get_result();
+
+				if ($sql_res->num_rows > 0) {
+					$contact_info = $sql_res->fetch_assoc();
+
+					$res = "{ \"status\": \"success\", \"desc\": \"\", \"first_name\": \"{$contact_info["first_name"]}\",
+					\"last_name\": \"{$contact_info["last_name"]}\", \"email\": \"{$contact_info["email"]}\", 
+					\"phone_number\": \"{$contact_info["phone_number"]}\", \"date_created\": \"{$contact_info["date_created"]}\",
+					\"id\": {$inData["contact_id"]}
+					}";
+
+					http_response_code(200);
+					sendResultInfoAsJson($res);
+				} else {
+					sendResponse(404, "invalid_id", "requested contact does not exist");
+				}
 			} else {
 				sendInternalError();
 			}

@@ -46,7 +46,7 @@ if ($_SESSION['logged_in']) {
 				AND user_id=? 
 				ORDER BY first_name, last_name, email, phone_number";
 			} else {
-				$query = $query . "WHERE user_id=? ORDER BY id";
+				$query = $query . "WHERE user_id=? ORDER BY id DESC";
 			}
 
 			$query = $query . " LIMIT ? OFFSET ?;";

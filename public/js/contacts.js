@@ -62,15 +62,38 @@ document.addEventListener("wheel", (ev) => {
 	}
 });
 
-function appendContact(contact) {
-	let node = document.getElementById("contacts-container");
+function deleteContact(id) {
+	const reqBody = JSON.stringify({ contact_id: id });
 
+	fetch(
+		'./api/deleteContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			document.getElementById(`contact-card-${id}`).remove();
+			currentContactOffset--;
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function createContactCard(contact) {
 	let columnNode = document.createElement("div");
 	columnNode.classList.add('col');
+	columnNode.id = `contact-card-${contact.id}`;
 
 	let contactCard = document.createElement("div");
 	contactCard.classList.add('card', 'mb-3');
-	contactCard.setAttribute('data-contact-id', contact.id);
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');
@@ -80,7 +103,7 @@ function appendContact(contact) {
 			<button class="btn btn-outline-success me-1" onclick="">
 				<i class="bi bi-pencil"></i>
 			</button>
-			<button class="btn btn-outline-danger" onclick="">
+			<button class="btn btn-outline-danger" onclick="deleteContact(${contact.id});">
 				<i class="bi bi-trash"></i>
 			</button>
 		</div>`;
@@ -109,7 +132,15 @@ function appendContact(contact) {
 
 	columnNode.appendChild(contactCard);
 
-	node.appendChild(columnNode);
+	return columnNode;
+}
+
+function appendContact(contact) {
+	let node = document.getElementById("contacts-container");
+
+	let contactCard = createContactCard(contact);
+
+	node.appendChild(contactCard);
 }
 
 function clearContacts()
@@ -152,6 +183,34 @@ function addContactBegin() {
 	btn.disabled = true;
 }
 
+function addContactSuccess(contact_id) {
+	const reqBody = JSON.stringify({ contact_id });
+
+	fetch(
+		'./api/getContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			addContactCard.remove();
+			addContactCard = null;
+			let contactCard = createContactCard(json);
+			document.getElementById("contacts-container").prepend(contactCard);
+			document.getElementById("create-contact-button").disabled = false;
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
 function addContactSubmit() {
 	let first_name = document.getElementById("add-contact-first-name").value;
 	let last_name = document.getElementById("add-contact-last-name").value;
@@ -181,8 +240,7 @@ function addContactSubmit() {
 		return response.json();
 	}).then(json => {
 		if (json.status === 'success') {
-			clearContacts();
-			loadNextContacts();
+			addContactSuccess(json.contact_id);
 		}
 	}).catch(function(error) {
 		console.log(error);
