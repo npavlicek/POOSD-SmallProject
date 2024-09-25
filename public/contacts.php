@@ -13,22 +13,27 @@ if ($_SESSION['logged_in']) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
 
     <body>
-        <div class="container mt-5">
-            <?php
-            echo '<h1 class="pt-5"><b>Welcome ' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h1>';
-            ?>
+        <div class="container-fluid">
+            <div class="row" style="height: 100vh;">
+                <div class="col-2">
+                    <?php
+                    echo '<h1><b>Welcome ' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h1>';
+                    ?>
 
-            <a href="/logout.php" class="mt-3">Logout</a>
-            <h1 class="text-center mb-5">Contact List</h1>
+                    <button id="create-contact-button" class="btn btn-primary" onclick="addContactBegin();">Create Contact</button>
+                    <input type="text" aria-label="Search for Contact" placeholder="Search contacts..." class="form-control" id="searchbar" oninput="searchUpdate()">
 
-            <div>
-                <button class="new-button-contact" onclick=""> + Create New Contact</button>
-            </div>
+                    <a href="/logout.php" class="mt-3">Logout</a>
+                </div>
 
-            <div id="contacts-container" class="row row-cols-3">
+                <div class="col h-100 mh-100">
+                    <div id="contacts-container" class="row row-cols-4 h-100 mh-100" style="overflow-y: scroll;">
+                    </div>
+                </div>
             </div>
         </div>
 
