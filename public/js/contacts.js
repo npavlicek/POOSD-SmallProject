@@ -51,10 +51,12 @@ function loadNextContacts() {
 
 initContacts();
 
+const contactsContainer = document.getElementById("contacts-container");
+
 let scrollTimeout = false;
-document.addEventListener("wheel", (ev) => {
+contactsContainer.addEventListener("wheel", (ev) => {
 	if (!scrollTimeout && !doneLoadingAllContacts) {
-		if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+		if ((contactsContainer.offsetHeight + contactsContainer.scrollTop) >= contactsContainer.scrollHeight) {
 			scrollTimeout = true;
 			setTimeout(_ => {scrollTimeout = false;}, 100);
 			loadNextContacts();
@@ -87,6 +89,202 @@ function deleteContact(id) {
 	});
 }
 
+function createEditContactCard(contact) {
+	let columnNode = document.createElement("div");
+	columnNode.classList.add('col');
+	columnNode.id = `edit-contact-card-${contact.id}`;
+
+	let contactCard = document.createElement("div");
+	contactCard.classList.add('card', 'mb-3');
+
+	let cardHeader = document.createElement("div");
+	cardHeader.classList.add('card-header');
+	cardHeader.innerHTML = `
+		<div class="d-flex align-items-center">
+			<h5 class="flex-grow-1 m-0">Edit Contact</h5>
+			<button class="btn btn-primary me-1" onclick="editContactSubmit(${contact.id});">
+				<i class="bi bi-check-lg"></i>
+			</button>
+			<button class="btn btn-danger" onclick="editContactCancel(${contact.id});">
+				<i class="bi bi-x-lg"></i>
+			</button>
+		</div>`;
+
+	let firstNameItem = document.createElement("li");
+	firstNameItem.classList.add('list-group-item');
+
+	let firstNameInput = document.createElement("input");
+	firstNameInput.classList.add("form-control");
+	firstNameInput.placeholder = "first name";
+	firstNameInput.id = `edit-contact-first-name-${contact.id}`;
+	firstNameInput.value = contact.first_name;
+	firstNameItem.appendChild(firstNameInput);
+
+	let lastNameItem = document.createElement("li");
+	lastNameItem.classList.add('list-group-item');
+
+	let lastNameInput = document.createElement("input");
+	lastNameInput.classList.add("form-control");
+	lastNameInput.placeholder = "last name";
+	lastNameInput.id = `edit-contact-last-name-${contact.id}`;
+	lastNameInput.value = contact.last_name;
+	lastNameItem.appendChild(lastNameInput);
+
+	let emailItem = document.createElement("li");
+	emailItem.classList.add('list-group-item');
+
+	let emailInput = document.createElement("input");
+	emailInput.classList.add("form-control");
+	emailInput.placeholder = "email";
+	emailInput.id = `edit-contact-email-${contact.id}`;
+	emailInput.value = contact.email;
+	emailItem.appendChild(emailInput);
+
+	let phoneNumberItem = document.createElement("li");
+	phoneNumberItem.classList.add('list-group-item');
+
+	let phoneNumberInput = document.createElement("input");
+	phoneNumberInput.classList.add("form-control");
+	phoneNumberInput.placeholder = "phone number";
+	phoneNumberInput.id = `edit-contact-phone-number-${contact.id}`;
+	phoneNumberInput.value = contact.phone_number;
+	phoneNumberItem.appendChild(phoneNumberInput);
+
+	let listGroup = document.createElement("ul");
+	listGroup.classList.add('list-group', 'list-group-flush');
+
+	listGroup.appendChild(firstNameItem);
+	listGroup.appendChild(lastNameItem);
+	listGroup.appendChild(emailItem);
+	listGroup.appendChild(phoneNumberItem);
+
+	contactCard.appendChild(cardHeader);
+	contactCard.appendChild(listGroup);
+
+	columnNode.appendChild(contactCard);
+
+	return columnNode;
+}
+
+function editContactBegin(id) {
+	const contactCard = document.getElementById(`contact-card-${id}`);
+
+	const reqBody = JSON.stringify({ contact_id: id });
+
+	fetch(
+		'./api/getContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			const editContactCard = createEditContactCard(json);
+			contactCard.replaceWith(editContactCard);
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function editContactSubmit(id) {
+	const first_name = document.getElementById(`edit-contact-first-name-${id}`).value;
+	const last_name = document.getElementById(`edit-contact-last-name-${id}`).value;
+	const email = document.getElementById(`edit-contact-email-${id}`).value;
+	const phone_number = document.getElementById(`edit-contact-phone-number-${id}`).value;
+
+	const reqBody = JSON.stringify({ 
+		contact_id: id,
+		first_name,
+		last_name,
+		email,
+		phone_number
+
+	});
+
+	fetch(
+		'./api/editContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			editContactSuccess(id);
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function editContactSuccess(id) {
+	const reqBody = JSON.stringify({ 
+		contact_id: id
+
+	});
+
+	fetch(
+		'./api/getContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			const editContactCard = document.getElementById(`edit-contact-card-${id}`);
+			const contactCard = createContactCard(json);
+			editContactCard.replaceWith(contactCard);
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
+function editContactCancel(id) {
+	const editContactCard = document.getElementById(`edit-contact-card-${id}`);
+
+	const reqBody = JSON.stringify({ contact_id: id });
+
+	fetch(
+		'./api/getContact.php',
+		{
+			method: 'post',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: reqBody,
+			credentials: 'include'
+		}
+	).then(response => {
+		return response.json();
+	}).then(json => {
+		if (json.status === 'success') {
+			const contactCard = createContactCard(json);
+			editContactCard.replaceWith(contactCard);
+		}
+	}).catch(function(error) {
+		console.log(error);
+	});
+}
+
 function createContactCard(contact) {
 	let columnNode = document.createElement("div");
 	columnNode.classList.add('col');
@@ -100,7 +298,7 @@ function createContactCard(contact) {
 	cardHeader.innerHTML = `
 		<div class="d-flex align-items-center">
 			<h5 class="flex-grow-1 m-0">${contact.first_name} ${contact.last_name}</h5>
-			<button class="btn btn-outline-success me-1" onclick="">
+			<button class="btn btn-outline-success me-1" onclick="editContactBegin(${contact.id})">
 				<i class="bi bi-pencil"></i>
 			</button>
 			<button class="btn btn-outline-danger" onclick="deleteContact(${contact.id});">

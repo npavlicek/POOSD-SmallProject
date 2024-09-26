@@ -18,20 +18,19 @@ if ($_SESSION['logged_in']) {
 
     <body>
         <div class="container-fluid">
-            <div class="row" style="height: 100vh;">
-                <div class="col-2">
+            <div class="row vh-100">
+                <div class="col-2 mt-2">
                     <?php
-                    echo '<h1><b>Welcome ' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h1>';
+                    echo '<h3>Welcome <br><b>' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h3>';
                     ?>
-
+                    <a href="/logout.php" class="mt-3">Logout</a>
+                    <br>
                     <button id="create-contact-button" class="btn btn-primary" onclick="addContactBegin();">Create Contact</button>
                     <input type="text" aria-label="Search for Contact" placeholder="Search contacts..." class="form-control" id="searchbar" oninput="searchUpdate()">
-
-                    <a href="/logout.php" class="mt-3">Logout</a>
                 </div>
 
-                <div class="col h-100 mh-100">
-                    <div id="contacts-container" class="row row-cols-4 h-100 mh-100" style="overflow-y: scroll;">
+                <div class="col mh-100 mt-3">
+                    <div id="contacts-container" class="row row-cols-4 mh-100" style="overflow-y: scroll;">
                     </div>
                 </div>
             </div>
