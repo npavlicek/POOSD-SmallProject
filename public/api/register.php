@@ -34,7 +34,10 @@ if ($keys_exist) {
 			sendResponse(409, "register_fail", "username taken");
 		} else {
 			$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
-			$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
+
+			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+			$stmt->bind_param("ssss", $firstName, $lastName, $username, $hashedPassword);
 
 			if ($stmt->execute()) {
 				sendResponse(200, "success", "");
