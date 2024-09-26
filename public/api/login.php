@@ -20,21 +20,27 @@ if ($keys_exist) {
 	if ($conn->connect_errno) {
 		sendInternalError();
 	} else {
-		$stmt = $conn->prepare("SELECT id,first_name,last_name FROM users WHERE username=BINARY ? AND password=BINARY ?");
-		$stmt->bind_param("ss", $inData["username"], $inData["password"]);
+		$stmt = $conn->prepare("SELECT id,first_name,last_name,password FROM users WHERE username=BINARY ?");
+		$stmt->bind_param("s", $inData["username"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-		if ($row = $result->fetch_assoc()) {
-			$_SESSION['logged_in'] = true;
-			$_SESSION['id'] = $row['id'];
-			$_SESSION['first_name'] = $row['first_name'];
-			$_SESSION['last_name'] = $row['last_name'];
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
 
-			$timestamp = new DateTime();
-			$conn->execute_query("UPDATE users SET date_last_logged_in=? WHERE id=?;", [$timestamp->format('Y-m-d H:i:s'), $row['id']]);
+			if (password_verify($inData["password"], $row["password"])) {
+				$_SESSION['logged_in'] = true;
+				$_SESSION['id'] = $row['id'];
+				$_SESSION['first_name'] = $row['first_name'];
+				$_SESSION['last_name'] = $row['last_name'];
 
-			sendResponse(200, "success", "");
+				$timestamp = new DateTime();
+				$conn->execute_query("UPDATE users SET date_last_logged_in=? WHERE id=?;", [$timestamp->format('Y-m-d H:i:s'), $row['id']]);
+
+				sendResponse(200, "success", "");
+			} else {
+				sendResponse(401, "login_fail", "incorrect credentials");
+			}
 		} else {
 			sendResponse(401, "login_fail", "incorrect credentials");
 		}
