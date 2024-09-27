@@ -91,11 +91,11 @@ function deleteContact(id) {
 
 function createEditContactCard(contact) {
 	let columnNode = document.createElement("div");
-	columnNode.classList.add('col');
+	columnNode.classList.add('col', 'mt-3');
 	columnNode.id = `edit-contact-card-${contact.id}`;
 
 	let contactCard = document.createElement("div");
-	contactCard.classList.add('card', 'mb-3');
+	contactCard.classList.add('card');
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');
@@ -285,13 +285,20 @@ function editContactCancel(id) {
 	});
 }
 
+const timestampFormat = Intl.DateTimeFormat("en-US", {
+	timeZone: "America/New_York",
+	dateStyle: "medium",
+	timeStyle: "short"
+});
+
 function createContactCard(contact) {
 	let columnNode = document.createElement("div");
 	columnNode.classList.add('col');
 	columnNode.id = `contact-card-${contact.id}`;
+	columnNode.classList.add('mt-3');
 
 	let contactCard = document.createElement("div");
-	contactCard.classList.add('card', 'mb-3');
+	contactCard.classList.add('card');
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');
@@ -307,8 +314,10 @@ function createContactCard(contact) {
 		</div>`;
 
 	let cardFooter = document.createElement("div");
-	cardFooter.classList.add('card-footer', 'text-body-secondary', 'text-end');
-	cardFooter.innerText = "Created: " + contact.date_created;
+	cardFooter.classList.add('card-footer', 'text-body-secondary');
+
+	let timestamp = new Date(contact.date_created.replace(" ", "T") + "Z");
+	cardFooter.innerHTML = "Created: " + timestampFormat.format(timestamp);
 
 	let emailItem = document.createElement("li");
 	emailItem.classList.add('list-group-item');
@@ -453,10 +462,10 @@ function addContactCancel() {
 
 function createAddContactInputCard() {
 	let columnNode = document.createElement("div");
-	columnNode.classList.add('col');
+	columnNode.classList.add('col', 'mt-3');
 
 	let contactCard = document.createElement("div");
-	contactCard.classList.add('card', 'mb-3');
+	contactCard.classList.add('card');
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');

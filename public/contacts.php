@@ -29,7 +29,7 @@ if ($_SESSION['logged_in']) {
                     <input type="text" aria-label="Search for Contact" placeholder="Search contacts..." class="form-control" id="searchbar" oninput="searchUpdate()">
                 </div>
 
-                <div class="col mh-100 mt-3">
+                <div class="col mh-100">
                     <div id="contacts-container" class="row row-cols-4 mh-100" style="overflow-y: scroll;">
                     </div>
                 </div>
