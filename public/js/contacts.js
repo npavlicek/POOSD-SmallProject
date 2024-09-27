@@ -285,6 +285,12 @@ function editContactCancel(id) {
 	});
 }
 
+const timestampFormat = Intl.DateTimeFormat("en-US", {
+	timeZone: "America/New_York",
+	dateStyle: "medium",
+	timeStyle: "short"
+});
+
 function createContactCard(contact) {
 	let columnNode = document.createElement("div");
 	columnNode.classList.add('col');
@@ -308,8 +314,10 @@ function createContactCard(contact) {
 		</div>`;
 
 	let cardFooter = document.createElement("div");
-	cardFooter.classList.add('card-footer', 'text-body-secondary', 'text-end');
-	cardFooter.innerText = "Created: " + contact.date_created;
+	cardFooter.classList.add('card-footer', 'text-body-secondary');
+
+	let timestamp = new Date(contact.date_created.replace(" ", "T") + "Z");
+	cardFooter.innerHTML = "Created: " + timestampFormat.format(timestamp);
 
 	let emailItem = document.createElement("li");
 	emailItem.classList.add('list-group-item');
