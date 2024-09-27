@@ -91,11 +91,11 @@ function deleteContact(id) {
 
 function createEditContactCard(contact) {
 	let columnNode = document.createElement("div");
-	columnNode.classList.add('col');
+	columnNode.classList.add('col', 'mt-3');
 	columnNode.id = `edit-contact-card-${contact.id}`;
 
 	let contactCard = document.createElement("div");
-	contactCard.classList.add('card', 'my-3');
+	contactCard.classList.add('card');
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');
@@ -289,9 +289,10 @@ function createContactCard(contact) {
 	let columnNode = document.createElement("div");
 	columnNode.classList.add('col');
 	columnNode.id = `contact-card-${contact.id}`;
+	columnNode.classList.add('mt-3');
 
 	let contactCard = document.createElement("div");
-	contactCard.classList.add('card', 'my-3');
+	contactCard.classList.add('card');
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');
@@ -453,10 +454,10 @@ function addContactCancel() {
 
 function createAddContactInputCard() {
 	let columnNode = document.createElement("div");
-	columnNode.classList.add('col');
+	columnNode.classList.add('col', 'mt-3');
 
 	let contactCard = document.createElement("div");
-	contactCard.classList.add('card', 'my-3');
+	contactCard.classList.add('card');
 
 	let cardHeader = document.createElement("div");
 	cardHeader.classList.add('card-header');
