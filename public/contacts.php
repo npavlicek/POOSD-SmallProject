@@ -30,6 +30,12 @@ if ($_SESSION['logged_in']) {
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
                         <div style="height: 100px;"></div> <!-- Adjust height as needed -->
                         <h3 class="mx-auto"><b>About Us</b></h3>
+                        <p>Niko Pavlicek</p>
+                        <p>Ernesto Suarez</p>
+                        <p>Charles Longo</p>
+                        <p>Evan Graff</p>
+                        <p>Austin Chenoweth</p>
+                        <p>Andres Abrams</p>
                     </div>
                 </div>
 
