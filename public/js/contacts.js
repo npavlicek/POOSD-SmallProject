@@ -88,6 +88,47 @@ function deleteContact(id) {
 		console.log(error);
 	});
 }
+// Tried making the edit contact card both smaller and nicer?
+// function attemptCreateEdit(contact)
+// {
+//     let col = document.createElement("div");
+//     col.classList.add("col");
+//     col.classList.add("mt-3");
+//     col.id = `edit-contact-card-${contact.id}`;
+//     col.innerHTML = 
+//                     `<div class="card"><div class="card-header">
+//                         <div class="d-flex align-items-center">
+//                             <h5 class="flex-grow-1 m-0">Edit Contact</h5>
+//                             <button class="btn btn-primary me-1" onclick="editContactSubmit(${contact.id});">
+//                                 <i class="bi bi-check-lg"></i>
+//                             </button>
+//                             <button class="btn btn-danger" onclick="editContactCancel(${contact.id});">
+//                                 <i class="bi bi-x-lg"></i>
+//                             </button>
+//                         </div>
+//                     </div>
+//                     <div class="row">
+//                         <div class="col-2"></div>
+//                         <div class="p-1 col-4 p-1">
+//                             <input class="form-control" placeholder="First Name" id="edit-contact-first-name-${contact.id}" value="${contact.first_name}">
+//                         </div>
+//                         <div class="p-1 col-4 p-1">
+//                             <input class="form-control" placeholder="Last Name" id="edit-contact-last-name-${contact.id}" value="${contact.last_name}">
+//                         </div>
+//                         <div class="col-2"></div>
+//                         <div class="col-1"></div>
+//                         <li class="list-group-item col-10 p-1">
+//                             <input type="email" class="form-control" placeholder="Email" id="edit-contact-email-${contact.id}" value="${contact.email}">
+//                         </li>
+//                         <div class="col-1"></div>
+//                         <div class="col-1"></div>
+//                         <li class="list-group-item col-10 p-1">
+//                             <input class="form-control" placeholder="Phone Number" id="edit-contact-phone-number-${contact.id}" value="${contact.phone_number}">
+//                         </li>
+//                     </ul>
+//                     </div>`
+//     return col;
+// }
 
 function createEditContactCard(contact) {
 	let columnNode = document.createElement("div");
@@ -460,6 +501,48 @@ function addContactCancel() {
 	document.getElementById("create-contact-button").disabled = false;
 }
 
+// Practically the same as edit attempt, just without previous input
+// function attemptCreateAdd()
+// {
+//     let col = document.createElement("div");
+//     col.classList.add("col");
+//     col.classList.add("mt-3");
+//     col.id = `add-contact-card`;
+//     col.innerHTML = 
+//                     `<div class="card"><div class="card-header">
+//                         <div class="d-flex align-items-center">
+//                             <h5 class="flex-grow-1 m-0">Create Contact</h5>
+//                             <button class="btn btn-primary me-1" onclick="addContactSubmit();">
+//                                 <i class="bi bi-check-lg"></i>
+//                             </button>
+//                             <button class="btn btn-danger" onclick="addContactCancel();">
+//                                 <i class="bi bi-x-lg"></i>
+//                             </button>
+//                         </div>
+//                     </div>
+//                     <div class="row">
+//                         <div class="col-2"></div>
+//                         <div class="p-1 col-4 p-1">
+//                             <input class="form-control" placeholder="First Name" id="add-contact-first-name">
+//                         </div>
+//                         <div class="p-1 col-4 p-1">
+//                             <input class="form-control" placeholder="Last Name" id="add-contact-last-name">
+//                         </div>
+//                         <div class="col-2"></div>
+//                         <div class="col-1"></div>
+//                         <li class="list-group-item col-10 p-1">
+//                             <input type="email" class="form-control" placeholder="Email" id="add-contact-email">
+//                         </li>
+//                         <div class="col-1"></div>
+//                         <div class="col-1"></div>
+//                         <li class="list-group-item col-10 p-1">
+//                             <input class="form-control" placeholder="Phone Number" id="add-contact-phone-number">
+//                         </li>
+//                     </ul>
+//                     </div>`
+//     return col;
+// }
+
 function createAddContactInputCard() {
 	let columnNode = document.createElement("div");
 	columnNode.classList.add('col', 'mt-3');
@@ -531,3 +614,75 @@ function createAddContactInputCard() {
 
 	return columnNode;
 }
+
+// Quick Check on First Name & Last Name
+// function firstNameCheck(first_name)
+// {
+// 	const firstnamePattern = /^[a-zA-Z0-9!$#-]{1,}$/g;
+// 	let check = first_name.replaceAll(" ", '');
+// 	if(!firstnamePattern.test(first_name))
+// 	{
+// 		// Wrong Formating
+// 	}
+// 	if(check === "")
+// 	{
+// 		// Empty
+// 	}
+// }
+
+// function lastNameCheck(last_name)
+// {
+// 	const lastnamePattern = /^[a-zA-Z0-9!$#-]{0,}$/g;
+// 	if(!lastnamePattern.test(last_name))
+// 	{
+// 		// Wrong Formating
+// 	}
+// }
+
+
+// Quick Checks for Email and Phone Number (also includes a Phone Number Formatter)
+// function emailCheck(email)
+// {
+// 	const emailPattern = /^[a-zA-Z0-9-_.]{1,}@[a-zA-Z]{1,}.[a-z]{1,}$/;
+// 	if(!emailPattern.test(email))
+// 	{
+// 		// Wrong Formatting
+// 	}
+// }
+
+// function phoneCheck(phone_number)
+// {
+// 	let check = phone_number.replaceAll(" ", '');
+// 	check = check.replaceAll("(", '');
+// 	check = check.replaceAll(")", '');
+// 	check = check.replaceAll("-", '');
+// 	check = check.replaceAll(".", '');
+// 	const phonePattern = /^[0-9]{10,13}$/g;
+// 	if(!phonePattern.test(check))
+// 	{
+// 		// Wrong Formating
+// 	}
+// }
+
+// function formatPhoneNumber(phone_number)
+// {
+// 	let tmp = "";
+// 	for(let i = 0; i < phone_number.length; i++)
+// 	{
+// 		tmp += phone_number[phone_number.length - 1 - i];
+// 		if(tmp.length === 4){
+// 			tmp += "-";
+// 		}
+// 		if(tmp.length === 8){
+// 			tmp += " )";
+// 		}
+// 		if(tmp.length === 13){
+// 			tmp += "( ";
+// 		}
+// 	}
+// 	let res = "";
+// 	for(let i = tmp.length - 1; i >= 0; i--)
+// 	{
+// 		res += tmp[i];
+// 	}
+// }
