@@ -25,8 +25,8 @@ if ($_SESSION['logged_in']) {
                     ?>
                     <a href="/logout.php" class="btn btn-danger mt-3 rounded-3">Logout</a>
                     <br>
-                    <button id="create-contact-button" class="btn btn-primary" onclick="addContactBegin();">Create Contact</button>
-                    <input type="text" aria-label="Search for Contact" placeholder="Search contacts..." class="form-control" id="searchbar" oninput="searchUpdate()">
+                    <button id="create-contact-button" class="btn btn-primary mt-3" onclick="addContactBegin();">Create Contact</button>
+                    <input type="text" aria-label="Search for Contact" placeholder="Search contacts..." class="form-control mt-3" id="searchbar" oninput="searchUpdate()">
                 </div>
 
                 <div class="col mh-100">
