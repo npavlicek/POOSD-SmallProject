@@ -28,7 +28,7 @@ if ($_SESSION['logged_in']) {
                         <a href="/logout.php" class="btn btn-danger mt-3 rounded-3">Logout</a>
                         <button id="create-contact-button" class="btn btn-primary rounded-3" onclick="addContactBegin();">Create Contact</button>
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
-                        <h3 class="mx-auto margin-top: 100px"><b> About Us </b></h3>
+                        <h3 class="mx-auto mt-4"><b> About Us </b></h3>
                     </div>
                 </div>
 
