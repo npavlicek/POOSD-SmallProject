@@ -30,13 +30,13 @@ if ($_SESSION['logged_in']) {
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
                         <div style="height: 100px;"></div> <!-- Adjust height as needed -->
                         <h2 class="mx-auto"><b>About Us</b></h2>
-                        <h5>Project Manager / Database</h5>
+                        <h4>Project Manager / Database</h4>
                         <p>Niko Pavlicek</p>
-                        <h5>API</h5>
+                        <h4>API</h4>
                         <p>Ernesto Suarez</p>
                         <p>Charles Longo</p>
                         <p>Evan Graff</p>
-                        <h5>Front End</h5>
+                        <h4>Front End</h4>
                         <p>Austin Chenoweth</p>
                         <p>Andres Abrams</p>
                     </div>
