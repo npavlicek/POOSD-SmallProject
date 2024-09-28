@@ -19,7 +19,8 @@ if ($_SESSION['logged_in']) {
     <body>
         <div class="container-fluid">
             <div class="row vh-100">
-            <div class="card bg-primary-subtle p-3 col-2 mt-2">
+                <!-- change color later on of the block on the left below in the class card :)  -->
+            <div class="card p-3 col-2 mt-2"> 
                     <?php
                     echo '<h3>Welcome <br><b>' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h3>';
                     ?>
