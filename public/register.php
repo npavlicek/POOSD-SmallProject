@@ -22,19 +22,19 @@ if (!$_SESSION['logged_in']) {
         <div class="container mt-5 card">
             <form class="p-1" onsubmit="return doRegister();">
                 <div class="mb-3 form-floating">
-                    <input type="text" class="form-control" id="first_name">
+                    <input type="text" class="form-control" id="first_name" placeholder="First Name">
                     <label for="first_name" class="form-label"><b>First Name</b></label>
                 </div>
                 <div class="mb-3 form-floating">
-                    <input type="text" class="form-control" id="last_name">
+                    <input type="text" class="form-control" id="last_name" placeholder="Last Name">
                     <label for="last_name" class="form-label"><b>Last Name</b></label>
                 </div>
                 <div class="mb-3 form-floating">
-                    <input type="text" class="form-control" id="username">
+                    <input type="text" class="form-control" id="username" placeholder="Username">
                     <label for="username" class="form-label"><b>Username</b></label>
                 </div>
                 <div class="mb-3 form-floating">
-                    <input type="password" class="form-control" id="password">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
                     <label for="password" class="form-label"><b>Password</b></label>
                 </div>
                 <button id="register_button" type="submit" class="btn btn-primary">Register</button>
