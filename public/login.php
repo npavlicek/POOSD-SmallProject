@@ -30,7 +30,7 @@ if (!$_SESSION['logged_in']) {
                 </div>
                 <button type="submit" class="btn btn-primary">Sign In</button>
             </form>
-            <p class="mt-3 dt">Not signed up yet? <a href="/register.php">Sign up here</a>
+            <p class="mt-3">Not signed up yet? <a href="/register.php"><b>Sign up here</b></a>
             </p>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
