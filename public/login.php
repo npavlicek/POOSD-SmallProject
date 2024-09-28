@@ -20,13 +20,13 @@ if (!$_SESSION['logged_in']) {
     <body style="background-image: url('https://hmnh.harvard.edu/sites/hwpi.harvard.edu/files/styles/os_files_xxlarge/public/hmnh/files/sharks-poster-22-07-05.jpg?m=1666199614&itok=cXIwKTb8'); background-attachment: fixed; background-size: cover;">
         <div class="container mt-5 card">
             <form onsubmit="return doLogin();">
-                <div class="mb-3">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control" id="username" placeholder="Username">
                     <label for="username" class="form-label"><b>Username</b></label>
-                    <input type="text" class="form-control" id="username">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 form-floating">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
                     <label for="password" class="form-label"><b>Password</b></label>
-                    <input type="password" class="form-control" id="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Sign In</button>
             </form>
