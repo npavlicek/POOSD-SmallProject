@@ -21,21 +21,21 @@ if (!$_SESSION['logged_in']) {
     <body style="background-image: url('https://hmnh.harvard.edu/sites/hwpi.harvard.edu/files/styles/os_files_xxlarge/public/hmnh/files/sharks-poster-22-07-05.jpg?m=1666199614&itok=cXIwKTb8'); background-attachment: fixed; background-size: cover;">
         <div class="container mt-5 card">
             <form onsubmit="return doRegister();">
-                <div class="mb-3">
-                    <label for="first_name" class="form-label"><b>First Name</b></label>
+                <div class="mb-3 form-floating">
                     <input type="text" class="form-control" id="first_name">
+                    <label for="first_name" class="form-label"><b>First Name</b></label>
                 </div>
-                <div class="mb-3">
-                    <label for="last_name" class="form-label"><b>Last Name</b></label>
+                <div class="mb-3 form-floating">
                     <input type="text" class="form-control" id="last_name">
+                    <label for="last_name" class="form-label"><b>Last Name</b></label>
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label"><b>Username</b></label>
+                <div class="mb-3 form-floating">
                     <input type="text" class="form-control" id="username">
+                    <label for="username" class="form-label"><b>Username</b></label>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label"><b>Password</b></label>
+                <div class="mb-3 form-floating">
                     <input type="password" class="form-control" id="password">
+                    <label for="password" class="form-label"><b>Password</b></label>
                 </div>
                 <button id="register_button" type="submit" class="btn btn-primary">Register</button>
             </form>
