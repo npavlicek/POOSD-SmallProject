@@ -24,7 +24,7 @@ if ($_SESSION['logged_in']) {
                     <?php
                     echo '<h3>Welcome <br><b>' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h3>';
                     ?>
-                    <div class="vstack gap-2 col-md mx-auto">
+                    <div class="vstack gap-2 col-md mx-auto rgba(255,255,255,0.5)">
                         <a href="/logout.php" class="btn btn-danger mt-3 rounded-3">Logout</a>
                         <button id="create-contact-button" class="btn btn-primary rounded-3" onclick="addContactBegin();">Create Contact</button>
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
