@@ -29,7 +29,7 @@ if ($_SESSION['logged_in']) {
                         <button id="create-contact-button" class="btn btn-primary rounded-3" onclick="addContactBegin();">Create Contact</button>
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
                         <div class="mt-20"></div> 
-                        <h3><b> About Us </b></h3>
+                        <h3 class="mx-auto"><b> About Us </b></h3>
                     </div>
                 </div>
 
