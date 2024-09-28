@@ -20,7 +20,7 @@ if ($_SESSION['logged_in']) {
         <div class="container-fluid">
             <div class="row vh-100">
                 <!-- change color later on of the block on the left below in the class card :)  -->
-            <div class="card p-3 col-2 mt-2" style="background-color: rgba(255,255,255,0.5)"> 
+            <div class="card p-3 col-2 mt-2 mx-auto" style="background-color: rgba(255,255,255,0.5)"> 
                     <?php
                     echo '<h3>Welcome <br><b>' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h3>';
                     ?>
@@ -28,7 +28,8 @@ if ($_SESSION['logged_in']) {
                         <a href="/logout.php" class="btn btn-danger mt-3 rounded-3">Logout</a>
                         <button id="create-contact-button" class="btn btn-primary rounded-3" onclick="addContactBegin();">Create Contact</button>
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
-                        <h1 class="mx-auto" <b> About Us </b></h1>
+                        <div class="mt-20"></div> 
+                        <h3><b> About Us </b></h3>
                     </div>
                 </div>
 
