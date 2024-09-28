@@ -23,7 +23,7 @@ if ($_SESSION['logged_in']) {
                     <?php
                     echo '<h3>Welcome <br><b>' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h3>';
                     ?>
-                    <a href="/logout.php" class="mt-3">Logout</a>
+                    <a href="/logout.php" class="btn btn-danger mt-3 rounded-3">Logout</a>
                     <br>
                     <button id="create-contact-button" class="btn btn-primary" onclick="addContactBegin();">Create Contact</button>
                     <input type="text" aria-label="Search for Contact" placeholder="Search contacts..." class="form-control" id="searchbar" oninput="searchUpdate()">
@@ -31,7 +31,7 @@ if ($_SESSION['logged_in']) {
 
                 <div class="col mh-100">
                     <div id="contacts-container" class="row row-cols-4 mh-100" style="overflow-y: scroll;">
-                    </div>
+                </div>
                 </div>
             </div>
         </div>
