@@ -531,3 +531,44 @@ function createAddContactInputCard() {
 
 	return columnNode;
 }
+
+
+let contactIdToDelete = null;
+
+function deleteContact(id) {
+    contactIdToDelete = id; // Store the contact ID to delete
+    const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    deleteConfirmModal.show(); // Show the modal
+}
+
+// Add this function to handle confirmation
+document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+    if (contactIdToDelete !== null) {
+        const reqBody = JSON.stringify({ contact_id: contactIdToDelete });
+
+        fetch(
+            './api/deleteContact.php',
+            {
+                method: 'post',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: reqBody,
+                credentials: 'include'
+            }
+        ).then(response => {
+            return response.json();
+        }).then(json => {
+            if (json.status === 'success') {
+                document.getElementById(`contact-card-${contactIdToDelete}`).remove();
+                currentContactOffset--;
+            }
+        }).catch(function(error) {
+            console.log(error);
+        });
+        
+        contactIdToDelete = null; // Reset the contact ID after deletion
+        const deleteConfirmModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+        deleteConfirmModal.hide(); // Hide the modal after confirming deletion
+    }
+});
