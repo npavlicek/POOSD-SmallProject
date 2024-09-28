@@ -19,7 +19,7 @@ if (!$_SESSION['logged_in']) {
     </head>
 
     <body style="background-image: url('https://hmnh.harvard.edu/sites/hwpi.harvard.edu/files/styles/os_files_xxlarge/public/hmnh/files/sharks-poster-22-07-05.jpg?m=1666199614&itok=cXIwKTb8'); background-attachment: fixed; background-size: cover;">
-        <div class="container mt-5">
+        <div class="container mt-5 card">
             <form onsubmit="return doRegister();">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
