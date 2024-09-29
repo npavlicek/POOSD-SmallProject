@@ -18,16 +18,15 @@ if ($_SESSION['logged_in']) {
     <body style="background-image: url('https://hmnh.harvard.edu/sites/hwpi.harvard.edu/files/styles/os_files_xxlarge/public/hmnh/files/sharks-poster-22-07-05.jpg?m=1666199614&itok=cXIwKTb8'); background-attachment: fixed; background-size: cover;">
         <div class="container-fluid">
             <div class="row vh-100">
-                <!-- change color later on of the block on the left below in the class card :)  -->
-            <div class="card p-3 col-2 mt-2 mx-auto" style="background-color: rgba(255,255,255,0.5)"> 
+                <div class="card p-3 col-2 mt-2 mx-auto" style="background-color: rgba(255,255,255,0.5)">
                     <?php
                     echo '<h3 class="mx-auto">Welcome <br><b>' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '</b>!</h3>';
                     ?>
                     <div class="vstack gap-2 col-md mx-auto">
-                        <a href="/logout.php" class="btn btn-danger mt-3 rounded-3">Logout</a>
                         <button id="create-contact-button" class="btn btn-primary rounded-3" onclick="addContactBegin();">Create Contact</button>
                         <input type="text" aria-label="Search for Contact" placeholder="Search Contacts..." class="form-control rounded-3" id="searchbar" oninput="searchUpdate()">
-                        <div style="height: 100px;"></div> <!-- Adjust height as needed -->
+                        <a href="/logout.php" class="btn btn-secondary mt-3 rounded-3">Logout</a>
+                        <div style="height: 100px;"></div>
                         <h2 class="mx-auto"><b>About Us</b></h2>
                         <h4 class="mx-auto">Project Manager / Database</h4>
                         <p>Niko Pavlicek</p>
@@ -43,7 +42,7 @@ if ($_SESSION['logged_in']) {
 
                 <div class="col mh-100">
                     <div id="contacts-container" class="row row-cols-4 mh-100" style="overflow-y: scroll;">
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
