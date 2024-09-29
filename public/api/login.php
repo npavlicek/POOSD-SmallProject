@@ -49,7 +49,7 @@ if ($keys_exist) {
 		$conn->close();
 	}
 } else {
-	sendResponse(400, "bad_request", "missing required api parameters");
+	sendResponse(400, "bad_request", "missing required properties");
 }
 
 function getRequestInfo()
