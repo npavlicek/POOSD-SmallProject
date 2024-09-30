@@ -615,6 +615,19 @@ function createAddContactInputCard() {
 	return columnNode;
 }
 
+let deleteContactSelectedId = null
+const deleteContactModal = new bootstrap.Modal(document.getElementById("deleteContactModal"), {});
+
+function deleteContactStart(id) {
+	deleteContactModal.show();
+	deleteContactSelectedId = id;
+}
+
+function deleteContactConfirm() {
+	deleteContactModal.hide();
+	deleteContact(deleteContactSelectedId);
+}
+
 // Quick Check on First Name & Last Name
 // function firstNameCheck(first_name)
 // {
@@ -686,15 +699,3 @@ function createAddContactInputCard() {
 // 		res += tmp[i];
 // 	}
 // }
-let deleteContactSelectedId = null
-const deleteContactModal = new bootstrap.Modal(document.getElementById("deleteContactModal"), {});
-
-function deleteContactStart(id) {
-	deleteContactModal.show();
-	deleteContactSelectedId = id;
-}
-
-function deleteContactConfirm() {
-	deleteContactModal.hide();
-	deleteContact(deleteContactSelectedId);
-}

@@ -140,100 +140,40 @@ function doRegister()
 // 	let check = password.replaceAll(" ", '');
 // 	if(!passwordPattern.test(password))
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Wrong Format (Illegal Characters)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(check === "")
+// 	else if(check === "")
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Cannot Be Empty";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(!/[A-Z]/g.test(password))
+// 	else if(!/[A-Z]/g.test(password))
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Missing Uppercase (A-Z)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(!/[a-z]/g.test(password))
+// 	else if(!/[a-z]/g.test(password))
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Missing Lowercase (a-z)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(!/[!@#$%^&*()]/g.test(password))
+// 	else if(!/[!@#$%^&*()]/g.test(password))
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Missing a Special Character (e.g., !)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(!/[0-9]/g.test(password))
+// 	else if(!/[0-9]/g.test(password))
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Missing A Number (0-9)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(password.length < 6)
+// 	else if(password.length < 6)
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Not Enough Characters (6-20)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
-// 	if(password.length > 20)
+// 	else if(password.length > 20)
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Password: Too Many Characters (6-20)";
-
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 // 	}
+//	else
+//	{
+
+//	}
 // }
 
 // function validateUsername(username)
@@ -243,52 +183,23 @@ function doRegister()
 // 	if(!usernamePattern.test(username))
 // 	{
 // 		if(username.length < 6){
-// 			let wrapper = document.createElement("div");
-// 			wrapper.classList.add('error_alert');
 
-// 			let errMsg = document.createElement("div");
-// 			errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 			errMsg.innerText = "Username: Not Enough Characters (6-20)";
-
-// 			wrapper.appendChild(errMsg);
-// 			document.body.firstElementChild.appendChild(wrapper);
 // 		}
-// 		if(username.length > 20){
-// 			let wrapper = document.createElement("div");
-// 			wrapper.classList.add('error_alert');
-
-// 			let errMsg = document.createElement("div");
-// 			errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 			errMsg.innerText = "Username: Too Many Characters (6-20)";
-
-// 			wrapper.appendChild(errMsg);
-// 			document.body.firstElementChild.appendChild(wrapper);
+// 		else if(username.length > 20){
 // 		}
 // 		else
 // 		{
-// 			let wrapper = document.createElement("div");
-// 			wrapper.classList.add('error_alert');
 
-// 			let errMsg = document.createElement("div");
-// 			errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 			errMsg.innerText = "Username: Wrong Format (Illegal Characters)";
-
-// 			wrapper.appendChild(errMsg);
-// 			document.body.firstElementChild.appendChild(wrapper);
 // 		}
 		
 // }
-// 	if(check === "")
+// 	else if(check === "")
 // 	{
-// 		let wrapper = document.createElement("div");
-// 		wrapper.classList.add('error_alert');
 
-// 		let errMsg = document.createElement("div");
-// 		errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-// 		errMsg.innerText = "Username: Can Not be Empty";
+//	}
+//	else
+//	{
 
-// 		wrapper.appendChild(errMsg);
-// 		document.body.firstElementChild.appendChild(wrapper);
 //	}
 // }
 
@@ -303,10 +214,14 @@ function doRegister()
 // 	{
 // 		// Wrong Formating
 // 	}
-// 	if(check === "")
+// 	else if(check === "")
 // 	{
 // 		// Empty
 // 	}
+//	else
+//	{
+
+//	}
 // }
 
 // function lastNameCheck(last_name)
@@ -316,4 +231,8 @@ function doRegister()
 // 	{
 // 		// Wrong Formating
 // 	}
+//	else
+//	{
+
+//	}
 // }
