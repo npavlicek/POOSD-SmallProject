@@ -56,7 +56,7 @@ const contactsContainer = document.getElementById("contacts-container");
 let scrollTimeout = false;
 contactsContainer.addEventListener("wheel", (ev) => {
 	if (!scrollTimeout && !doneLoadingAllContacts) {
-		if ((contactsContainer.offsetHeight + contactsContainer.scrollTop) >= contactsContainer.scrollHeight) {
+		if ((contactsContainer.offsetHeight + contactsContainer.scrollTop) >= contactsContainer.scrollHeight - 15) {
 			scrollTimeout = true;
 			setTimeout(_ => {scrollTimeout = false;}, 100);
 			loadNextContacts();
