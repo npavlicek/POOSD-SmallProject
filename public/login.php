@@ -17,23 +17,20 @@ if (!$_SESSION['logged_in']) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
 
-    <body>
-        <div class="card container mt-5 rounded-3">
-            <form onsubmit="return doLogin();" class="row g-3">
-                <div class="p-2 col-md-6">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control border rounded-3" id="username">
+    <body style="background-image: url('https://hmnh.harvard.edu/sites/hwpi.harvard.edu/files/styles/os_files_xxlarge/public/hmnh/files/sharks-poster-22-07-05.jpg?m=1666199614&itok=cXIwKTb8'); background-attachment: fixed; background-size: cover;">
+        <div class="container mt-5 card">
+            <h2 class="pt-3">Contacts App</h2>
+            <form onsubmit="return doLogin();">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control" id="username" placeholder="Username">
+                    <label for="username" class="form-label"><b>Username</b></label>
                 </div>
-                <div class="p-2 col-md-6">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control border rounded-3" id="password">
-                </div>
-                <div class="p-3 col-1">
-                    <button type="submit" class="btn btn-primary rounded-3">Sign In</button>
+                <div class="mb-3 form-floating">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password" class="form-label"><b>Password</b></label>
                 </div>
             </form>
-            <!-- <p class="mt-3">Not signed up yet? <a href="/register.php">Sign up here</a>
-            </p> -->
+            <p class="mt-3"> <b>Not signed up yet?</b> <a href="/register.php"><b>Sign up here</b></a></p>
         </div>
         <div class="container mt-3">Not signed up yet? <button href="/register.php" class="btn btn-secondary rounded-3">Sign up Here</button></div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -349,7 +349,7 @@ function createContactCard(contact) {
 			<button class="btn btn-outline-success me-1" onclick="editContactBegin(${contact.id})">
 				<i class="bi bi-pencil"></i>
 			</button>
-			<button class="btn btn-outline-danger" onclick="deleteContact(${contact.id});">
+			<button class="btn btn-outline-danger" onclick="deleteContactStart(${contact.id});">
 				<i class="bi bi-trash"></i>
 			</button>
 		</div>`;
@@ -686,3 +686,15 @@ function createAddContactInputCard() {
 // 		res += tmp[i];
 // 	}
 // }
+let deleteContactSelectedId = null
+const deleteContactModal = new bootstrap.Modal(document.getElementById("deleteContactModal"), {});
+
+function deleteContactStart(id) {
+	deleteContactModal.show();
+	deleteContactSelectedId = id;
+}
+
+function deleteContactConfirm() {
+	deleteContactModal.hide();
+	deleteContact(deleteContactSelectedId);
+}
