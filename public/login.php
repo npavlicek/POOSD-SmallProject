@@ -29,10 +29,10 @@ if (!$_SESSION['logged_in']) {
                     <input type="password" class="form-control" id="password" placeholder="Password">
                     <label for="password" class="form-label"><b>Password</b></label>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign In</button>
             </form>
             <p class="mt-3"> <b>Not signed up yet?</b> <a href="/register.php"><b>Sign up here</b></a></p>
         </div>
+        <div class="container mt-3">Not signed up yet? <button href="/register.php" class="btn btn-secondary rounded-3">Sign up Here</button></div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="/js/login.js"></script>
     </body>

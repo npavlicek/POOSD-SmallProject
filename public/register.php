@@ -37,7 +37,6 @@ if (!$_SESSION['logged_in']) {
                     <input type="password" class="form-control" id="password" placeholder="Password">
                     <label for="password" class="form-label"><b>Password</b></label>
                 </div>
-                <button id="register_button" type="submit" class="btn btn-primary">Register</button>
             </form>
             <p class="mt-3"> <b>Already signed up?</b> <a href="/login.php"><b>Sign in here</b></a></p>
         </div>

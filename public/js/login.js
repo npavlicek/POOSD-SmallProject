@@ -51,7 +51,7 @@ function doLogin()
 
 				let errMsg = document.createElement("div");
 				errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-				errMsg.innerText = "Login error: " + json.desc;
+				errMsg.innerText = "Login Error: " + json.desc;
 
 				wrapper.appendChild(errMsg);
 				document.body.firstElementChild.appendChild(wrapper);
@@ -94,7 +94,7 @@ function doRegister()
 		if (json.status === 'success') {
 			const successMsg = document.createElement("div");
 			successMsg.classList.add('alert', 'alert-success', 'mt-3');
-			successMsg.innerText = "Successfully registered ";
+			successMsg.innerText = "Successfully Registered ";
 
 			const redirElem = document.createElement("a");
 			redirElem.innerText = "Login here";
@@ -120,7 +120,7 @@ function doRegister()
 
 				let errMsg = document.createElement("div");
 				errMsg.classList.add('alert', 'alert-danger', 'mt-3');
-				errMsg.innerText = "Registration error: " + json.desc;
+				errMsg.innerText = "Registration Error: " + json.desc;
 
 				wrapper.appendChild(errMsg);
 				document.body.firstElementChild.appendChild(wrapper);
@@ -133,3 +133,106 @@ function doRegister()
 	return false;
 }
 
+// Quick Validation Tests for Password and Username
+// function validatePassword(password)
+// {
+// 	const passwordPattern = /^[0-9a-zA-Z!@#$%^&*()]{6,20}$/;
+// 	let check = password.replaceAll(" ", '');
+// 	if(!passwordPattern.test(password))
+// 	{
+
+// 	}
+// 	else if(check === "")
+// 	{
+
+// 	}
+// 	else if(!/[A-Z]/g.test(password))
+// 	{
+
+// 	}
+// 	else if(!/[a-z]/g.test(password))
+// 	{
+
+// 	}
+// 	else if(!/[!@#$%^&*()]/g.test(password))
+// 	{
+
+// 	}
+// 	else if(!/[0-9]/g.test(password))
+// 	{
+
+// 	}
+// 	else if(password.length < 6)
+// 	{
+
+// 	}
+// 	else if(password.length > 20)
+// 	{
+
+// 	}
+//	else
+//	{
+
+//	}
+// }
+
+// function validateUsername(username)
+// {
+// 	const usernamePattern = /^[0-9a-zA-Z!@#$%^&*()]{6,20}$/;
+// 	let check = username.replaceAll(" ", '');
+// 	if(!usernamePattern.test(username))
+// 	{
+// 		if(username.length < 6){
+
+// 		}
+// 		else if(username.length > 20){
+// 		}
+// 		else
+// 		{
+
+// 		}
+		
+// }
+// 	else if(check === "")
+// 	{
+
+//	}
+//	else
+//	{
+
+//	}
+// }
+
+
+// Quick First Name & Last Name Checks to Have Input
+
+// function firstNameCheck(first_name)
+// {
+// 	const firstnamePattern = /^[a-zA-Z0-9!$#-]{1,}$/g;
+// 	let check = first_name.replaceAll(" ", '');
+// 	if(!firstnamePattern.test(first_name))
+// 	{
+// 		// Wrong Formating
+// 	}
+// 	else if(check === "")
+// 	{
+// 		// Empty
+// 	}
+//	else
+//	{
+
+//	}
+// }
+
+// function lastNameCheck(last_name)
+// {
+// 	const lastnamePattern = /^[a-zA-Z0-9!$#-]{0,}$/g;
+// 	if(!lastnamePattern.test(last_name))
+// 	{
+// 		// Wrong Formating
+// 	}
+//	else
+//	{
+
+//	}
+// }
